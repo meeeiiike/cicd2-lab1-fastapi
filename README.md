@@ -7,11 +7,7 @@ Use this `README.md` as the standard structure for future labs.
 
 ## Lab Title
 
-**Replace this with the lab title**
-
-Example:
-
-> Lab 1 — Creating a Basic FastAPI Application
+**Lab 1 — Creating a Basic FastAPI Application**
 
 ---
 ## Repository Structure
