@@ -13,7 +13,7 @@ def health():
 def hello():
     return {"message": "Hello from FastAPI"}
 
-@app.put("/api/users", status_code=status.HTTP_201_CREATED)
+@app.post("/api/users", status_code=status.HTTP_201_CREATED)
 def add_user(new_user: UserCreate):
     for existing_user in users:
         if existing_user.user_id == new_user.user_id:
