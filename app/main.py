@@ -1,9 +1,14 @@
-from fastapi import FastAPI, HTTPException, Response, status
-from app.schemas import UserCreate
+from fastapi import Depends, FastAPI, HTTPException, status
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
-app = FastAPI(title="Lab 1 - FastAPI User API")
+from app.database import engine, get_db
+from app.models import Base, UserDB
+from app.schemas import UserCreate, UserRead
 
-users: list[UserCreate] = []
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="Lab 3 - FastAPI SQLAlchemy User API")
 
 @app.get("/health")
 def health():
@@ -13,16 +18,21 @@ def health():
 def hello():
     return {"message": "Hello from FastAPI"}
 
-@app.post("/api/users", status_code=status.HTTP_201_CREATED)
-def add_user(new_user: UserCreate):
-    for existing_user in users:
-        if existing_user.user_id == new_user.user_id:
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail="A user with this id already exists",
-            )
-    users.append(new_user)
-    return new_user
+@app.post("/api/users", status_code=status.HTTP_201_CREATED, response_model=UserRead,)
+def add_user(new_user: UserCreate, db: Session = Depends(get_db)):
+    db_user = UserDB(**new_user.model_dump())
+    db.add(db_user)
+
+    try:
+        db.commit()
+        db.refresh(db_user)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A user with this email or student_id already exists",
+        )
+    return db_user
 
 @app.get("/api/users")
 def get_users():
