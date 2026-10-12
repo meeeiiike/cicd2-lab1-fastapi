@@ -7,7 +7,7 @@ Use this `README.md` as the standard structure for future labs.
 
 ## Lab Title
 
-**Lab 1 — Creating a Basic FastAPI Application**
+**Lab 4 — Testing a Database-Backed API**
 
 ---
 ## Repository Structure
@@ -17,11 +17,14 @@ Use the following structure for the labs:
 ```text
 project-name/
 │
+├── github/workflows/
+│   └── ci.yml
 ├── app/
 │   ├── __init__.py
 │   ├── main.py
 │   ├── schemas.py
 │   ├── services.py
+    ├── database.py
 │   └── models.py
 │
 ├── tests/
