@@ -5,9 +5,7 @@ Use this `README.md` as the standard structure for future labs.
 
 ---
 
-## Lab Title
-
-**Lab 5 — Two FastAPI Microservices with HTTPX**
+## Lab 5 — Two FastAPI Microservices with HTTPX
 ---
 ## Repository Structure
 
@@ -45,7 +43,7 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```bash
 python -m uvicorn product_service.main:app --host 0.0.0.0 --port 8001 --reload
 ```
-** In the Codespaces Ports tab, open port 8000 to access the User API or port 8001 to access the Product Service. Append /docs to either forwarded URL to view that service’s API documentation. **
+In the Codespaces Ports tab, open port 8000 to access the User API or port 8001 to access the Product Service. Append /docs to either forwarded URL to view that service’s API documentation.
 
 ## Get a Product
 
