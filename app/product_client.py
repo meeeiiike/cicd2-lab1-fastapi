@@ -7,7 +7,7 @@ PRODUCT_SERVICE_URL = os.getenv(
 
 def fetch_product(product_id: int) -> dict:
     response = httpx.get(
-        f"{PRODUCT_SERVICE_URL}/products/{product_id}",
+        f"{PRODUCT_SERVICE_URL}/api/products/{product_id}",
         timeout=3.0,
     )
     response.raise_for_status()
@@ -18,7 +18,7 @@ def get_product_fetcher():
 
 def fetch_products() -> list[dict]:
     response = httpx.get(
-        "{PRODUCT_SERVICE_URL}/products",
+        f"{PRODUCT_SERVICE_URL}/api/products",
         timeout=3.0,
     )
     response.raise_for_status()
