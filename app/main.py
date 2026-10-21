@@ -66,6 +66,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.commit()
     return
 
+# User service makes the httpx call
 @app.get("/api/products/{product_id}")
 def get_remote_product(
     product_id: int,
