@@ -7,7 +7,7 @@ from sqlalchemy import select
 from app.database import engine, get_db
 from app.models import Base, UserDB
 from app.schemas import UserCreate, UserRead
-from app.product_client import get_product_fetcher
+from app.product_client import get_product_fetcher, get_products_fetcher
 
 Base.metadata.create_all(bind=engine)
 
@@ -76,5 +76,17 @@ def get_remote_product(
     except httpx.HTTPStatusError as exc:
         if exc.response.status_code == 404:
             raise HTTPException(404, "Product Not Found") from exc
+    except httpx.RequestError as exc:
+        raise HTTPException(503, "Product Service Unavailable") from exc
+
+@app.get("/api/products")
+def get_remote_products(
+    products_fetcher=Depends(get_products_fetcher),
+):
+    try:
+        return products_fetcher
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 404: # surely not right for returning empty list, as empty list wont throw err??CLARIFY
+            raise HTTPException(404, "Products Not Found") from exc
     except httpx.RequestError as exc:
         raise HTTPException(503, "Product Service Unavailable") from exc
