@@ -13,3 +13,9 @@ def get_product(product_id: int):
     if product is None:
         raise HTTPException(status_code=404, detail="Product Not Found")
     return product
+
+@app.get("/products")
+def get_products():
+    products = list(PRODUCTS.values())
+    return products
+
