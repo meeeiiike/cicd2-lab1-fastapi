@@ -2,7 +2,7 @@ import os
 import httpx
 
 PRODUCT_SERVICE_URL = os.getenv(
-    "PRODUCT_SERVICE_URL", "http://127.0.0.1:8001"
+    "PRODUCT_SERVICE_URL", "http://product-service:8001"
 )
 
 def fetch_product(product_id: int) -> dict:
@@ -25,7 +25,5 @@ def fetch_products() -> list[dict]:
     return response.json()
 
 def get_products_fetcher():
-    return fetch_products ## Task C mentions "returns fetch_product (without calling it)", research and clarify this without calling it part
-
-
+    return fetch_products 
 
