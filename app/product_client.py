@@ -25,7 +25,5 @@ def fetch_products() -> list[dict]:
     return response.json()
 
 def get_products_fetcher():
-    return fetch_products ## Task C mentions "returns fetch_product (without calling it)", research and clarify this without calling it part
-
-
+    return fetch_products 
 
